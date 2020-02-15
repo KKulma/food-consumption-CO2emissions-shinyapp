@@ -34,11 +34,11 @@ ui <- dashboardPage(
             )
           )),
           leafletOutput("map", width = "100%", height = "100%"), 
-          absolutePanel(id = "info", class = "panel panel-default", fixed = TRUE,
-                        draggable = TRUE, top = 60, left = "auto", right = 20, bottom = "auto",
-                        width = 330, height = "auto",
-                        
-                        h2("Country Stats")
+          # absolutePanel(id = "info", class = "panel panel-default", fixed = TRUE,
+          #               draggable = TRUE, top = 60, left = "auto", right = 20, bottom = "auto",
+          #               width = 330, height = "auto",
+          #               
+          #               h2("Country Stats")
                         
                         # selectInput("color", "Color", vars),
                         # selectInput("size", "Size", vars, selected = "adultpop"),
@@ -49,7 +49,7 @@ ui <- dashboardPage(
                         # 
                         # plotOutput("histCentile", height = 200),
                         # plotOutput("scatterCollegeIncome", height = 250)
-          )
+          #)
         )
       ),
       tabPanel("Data explorer",
