@@ -1,5 +1,6 @@
 
 
+
 ui <- dashboardPage(
   dashboardHeader(),
   dashboardSidebar(disable = TRUE),
@@ -16,7 +17,8 @@ ui <- dashboardPage(
         div(
           class = "outer",
           
-          fluidRow(column(4,
+          fluidRow(column(
+            4,
             radioButtons(
               inputId = "map_var",
               label =  "Choose variable to map :",
@@ -26,39 +28,49 @@ ui <- dashboardPage(
               selected = "CO2 emissions"
             )
           ),
-          column(3,
+          column(
+            3,
             selectInput(
               inputId = "food",
               label = "Choose Food Type",
               choices = unique(map2$food_category)
             )
           )),
-          leafletOutput("map", width = "100%", height = "100%"), 
-          absolutePanel(id = "info", class = "panel panel-default", fixed = TRUE,
-                        draggable = TRUE, top = 60, left = "auto", right = 20, bottom = "auto",
-                        width = 330, height = "auto",
-                        
-                        h2("Country Stats")
-                        
-                        # selectInput("color", "Color", vars),
-                        # selectInput("size", "Size", vars, selected = "adultpop"),
-                        # conditionalPanel("input.color == 'superzip' || input.size == 'superzip'",
-                        #                  # Only prompt for threshold when coloring or sizing by superzip
-                        #                  numericInput("threshold", "SuperZIP threshold (top n percentile)", 5)
-                        # ),
-                        # 
-                        # plotOutput("histCentile", height = 200),
-                        # plotOutput("scatterCollegeIncome", height = 250)
-          )
+          leafletOutput("map", width = "100%", height = "100%"),
+          # absolutePanel(id = "info", class = "panel panel-default", fixed = TRUE,
+          #               draggable = TRUE, top = 60, left = "auto", right = 20, bottom = "auto",
+          #               width = 330, height = "auto",
+          #
+          #               h2("Country Stats")
+          
+          # selectInput("color", "Color", vars),
+          # selectInput("size", "Size", vars, selected = "adultpop"),
+          # conditionalPanel("input.color == 'superzip' || input.size == 'superzip'",
+          #                  # Only prompt for threshold when coloring or sizing by superzip
+          #                  numericInput("threshold", "SuperZIP threshold (top n percentile)", 5)
+          # ),
+          #
+          # plotOutput("histCentile", height = 200),
+          # plotOutput("scatterCollegeIncome", height = 250)
+          #)
         )
       ),
-      tabPanel("Data explorer",
-               fluidRow(
-                 column(3,
-                        selectInput(inputId = "countries", label = "Countries", choices = c("All Countries", sort(unique(final_table$country))), selected = 'All Countries', multiple = TRUE)
-                 )),
-               DT::dataTableOutput('datatable'))
+      tabPanel(
+        "Data explorer",
+        fluidRow(column(
+          3,
+          selectInput(
+            inputId = "countries",
+            label = "Countries",
+            choices = c("All Countries", sort(unique(
+              final_table$country
+            ))),
+            selected = 'All Countries',
+            multiple = TRUE
+          )
+        )),
+        DT::dataTableOutput('datatable')
+      )
     )
   )
 )
-      

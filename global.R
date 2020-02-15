@@ -1,15 +1,15 @@
 library(shiny)
 library(shinydashboard)
+library(dashboardthemes)
 library(leaflet)
 library(dplyr)
 library(readr)
 library(rgdal)
-library(dashboardthemes)
 library(DT)
+library(RColorBrewer)
 
 ## load data
-final_table <- readRDS("consumption-CO2emissions-data.rds")
-# source("01-scraping-food-country-co2-dataset.R")
+final_table <- readRDS("data/consumption-CO2emissions-data.rds")
 
 final_table <- final_table %>%
   mutate(consumption = parse_number(consumption),
@@ -23,7 +23,7 @@ final_table$country[final_table$country == "Congo"] <-
 ##  data matching data
 
 # add consumption & emission data to polygon data
-countries <- readOGR("world-shapefiles-simple", "TM_WORLD_BORDERS-0.3")
+countries <- readOGR("data", "TM_WORLD_BORDERS-0.3")
 
 map <-
   merge(
