@@ -1,15 +1,16 @@
 
 
+
 server <- server <- function(input, output, session) {
-  
-  
   output$datatable <- DT::renderDataTable({
-    if(input$countries == 'All Countries') {
+    if (input$countries == 'All Countries') {
       output <- final_table
     } else {
       output <- filter(final_table, country %in% input$countries)
     }
-    DT::datatable(output, filter = "top", options = list(scrollX = TRUE))
+    DT::datatable(output,
+                  filter = "top",
+                  options = list(scrollX = TRUE))
   })
   
   filtered_map <- reactive({
@@ -31,15 +32,17 @@ server <- server <- function(input, output, session) {
     filtered_map
   })
   
-
+  
   data_to_map <- reactive({
     req(input$map_var)
-
-    switch(input$map_var,
-           "CO2 emissions" = filtered_map()$co2_emmission,
-           "Food Consumption" = filtered_map()$consumption)
+    
+    switch(
+      input$map_var,
+      "CO2 emissions" = filtered_map()$co2_emmission,
+      "Food Consumption" = filtered_map()$consumption
+    )
   })
-
+  
   
   # pal <- reactive({
   #   colorBin(
@@ -56,19 +59,18 @@ server <- server <- function(input, output, session) {
       addTiles() %>%
       setView(lng = 0,
               lat = 30,
-              zoom = 2) 
+              zoom = 2)
     
-    })
+  })
   
   
-  observe({ 
-    pal <- colorBin(
-      palette = "viridis",
-      domain = data_to_map(),
-      bins = 7)
-  
-  leafletProxy("map", data = filtered_map()) %>%
-    addProviderTiles(providers$CartoDB.Positron) %>% 
+  observe({
+    pal <- colorBin(palette = "viridis",
+                    domain = data_to_map(),
+                    bins = 7)
+    
+    leafletProxy("map", data = filtered_map()) %>%
+      addProviderTiles(providers$CartoDB.Positron) %>%
       addPolygons(
         fillColor = ~ pal(data_to_map()),
         color = "white",
@@ -78,6 +80,7 @@ server <- server <- function(input, output, session) {
                                      bringToFront = TRUE)
       ) %>%
       leaflet::addLegend(
+        position = "bottomleft",
         pal = pal,
         values = ~ data_to_map(),
         opacity = 0.7,
