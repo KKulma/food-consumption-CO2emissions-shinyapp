@@ -1,11 +1,12 @@
 library(shiny)
 library(shinydashboard)
+library(dashboardthemes)
 library(leaflet)
 library(dplyr)
 library(readr)
 library(rgdal)
-library(dashboardthemes)
 library(DT)
+library(RColorBrewer)
 
 ## load data
 final_table <- readRDS("consumption-CO2emissions-data.rds")

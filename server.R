@@ -44,7 +44,7 @@ server <- server <- function(input, output, session) {
   # pal <- reactive({
   #   colorBin(
   #   palette = "viridis",
-  #   domain = filtered_map()$co2_emmission,
+  #   domain = data_to_map(),
   #   bins = 7)
   # })
   
@@ -52,17 +52,23 @@ server <- server <- function(input, output, session) {
     req(input$food)
     req(input$map_var)
     
-    pal <- colorBin(
-      palette = "viridis",
-      domain = data_to_map(),
-      bins = 7)
-    
     leaflet(filtered_map()) %>%
       addTiles() %>%
       setView(lng = 0,
               lat = 30,
-              zoom = 2) %>%
-      addProviderTiles(providers$CartoDB.Positron) %>%
+              zoom = 2) 
+    
+    })
+  
+  
+  observe({ 
+    pal <- colorBin(
+      palette = "viridis",
+      domain = data_to_map(),
+      bins = 7)
+  
+  leafletProxy("map", data = filtered_map()) %>%
+    addProviderTiles(providers$CartoDB.Positron) %>% 
       addPolygons(
         fillColor = ~ pal(data_to_map()),
         color = "white",
