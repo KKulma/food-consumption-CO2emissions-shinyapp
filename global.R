@@ -5,6 +5,7 @@ library(shinycustomloader)
 library(RColorBrewer)
 library(leaflet)
 library(rnaturalearth)
+library(sp)
 library(DT)
 library(dplyr)
 library(readr)
@@ -32,11 +33,9 @@ names(countries)[names(countries) == "name"] <- "country"
 # add consumption & emission data to polygon data
 
 map <-
-  merge(
+  sp::merge(
     countries,
     final_table,
-    # by.x = "NAME",
-    # by.y = "country",
     duplicateGeoms = TRUE
   )
 
