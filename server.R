@@ -1,6 +1,7 @@
 
 
 
+
 server <- server <- function(input, output, session) {
   output$datatable <- DT::renderDataTable({
     if (input$countries == 'All Countries') {
@@ -43,13 +44,6 @@ server <- server <- function(input, output, session) {
     )
   })
   
-  
-  # pal <- reactive({
-  #   colorBin(
-  #   palette = "viridis",
-  #   domain = data_to_map(),
-  #   bins = 7)
-  # })
   
   output$map <- renderLeaflet({
     req(input$food)

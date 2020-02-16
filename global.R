@@ -34,4 +34,4 @@ map <-
     duplicateGeoms = TRUE
   )
 
-map2 <- map[!is.na(map@data$food_category), ]
+map2 <- map[!is.na(map@data$food_category),]
