@@ -36,7 +36,7 @@ ui <- dashboardPage(
               choices = unique(map2$food_category)
             )
           )),
-          leafletOutput("map", width = "100%", height = "100%"),
+          shinycustomloader::withLoader(leafletOutput("map", width = "100%", height = "100%"), loader = "loader4"),
           # absolutePanel(id = "info", class = "panel panel-default", fixed = TRUE,
           #               draggable = TRUE, top = 60, left = "auto", right = 20, bottom = "auto",
           #               width = 330, height = "auto",

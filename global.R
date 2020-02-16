@@ -7,6 +7,7 @@ library(readr)
 library(rgdal)
 library(DT)
 library(RColorBrewer)
+library(shinycustomloader)
 
 ## load data
 final_table <- readRDS("data/consumption-CO2emissions-data.rds")

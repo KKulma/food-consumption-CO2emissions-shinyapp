@@ -44,32 +44,19 @@ server <- server <- function(input, output, session) {
   })
   
   
-  # pal <- reactive({
-  #   colorBin(
-  #   palette = "viridis",
-  #   domain = data_to_map(),
-  #   bins = 7)
-  # })
-  
   output$map <- renderLeaflet({
     req(input$food)
     req(input$map_var)
+    
+    pal <- colorBin(palette = "viridis",
+                    domain = data_to_map(),
+                    bins = 7)
     
     leaflet(filtered_map()) %>%
       addTiles() %>%
       setView(lng = 0,
               lat = 30,
-              zoom = 2)
-    
-  })
-  
-  
-  observe({
-    pal <- colorBin(palette = "viridis",
-                    domain = data_to_map(),
-                    bins = 7)
-    
-    leafletProxy("map", data = filtered_map()) %>%
+              zoom = 2) %>% 
       addProviderTiles(providers$CartoDB.Positron) %>%
       addPolygons(
         fillColor = ~ pal(data_to_map()),
@@ -89,6 +76,15 @@ server <- server <- function(input, output, session) {
     
   })
   
+  
+  # observe({
+  #   
+  #   
+  #   leafletProxy("map", data = filtered_map()) %>%
+  #     
+  #   
+  # })
+  # 
   
   
 }
