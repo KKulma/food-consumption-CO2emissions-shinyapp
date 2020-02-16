@@ -1,6 +1,3 @@
-
-
-
 server <- server <- function(input, output, session) {
   output$datatable <- DT::renderDataTable({
     if (input$countries == 'All Countries') {
@@ -18,7 +15,7 @@ server <- server <- function(input, output, session) {
     filtered_map <- subset(map2, food_category == input$food)
     filtered_map$labels <- paste0(
       "<strong> Country: </strong> ",
-      filtered_map$NAME,
+      filtered_map$country,
       "<br/> ",
       "<strong> Food type consumption in kg/per capita: </strong> ",
       filtered_map$consumption,
@@ -56,7 +53,7 @@ server <- server <- function(input, output, session) {
       addTiles() %>%
       setView(lng = 0,
               lat = 30,
-              zoom = 2) %>% 
+              zoom = 2) %>%
       addProviderTiles(providers$CartoDB.Positron) %>%
       addPolygons(
         fillColor = ~ pal(data_to_map()),
@@ -73,18 +70,5 @@ server <- server <- function(input, output, session) {
         opacity = 0.7,
         title = paste0(input$map_var)
       )
-    
   })
-  
-  
-  # observe({
-  #   
-  #   
-  #   leafletProxy("map", data = filtered_map()) %>%
-  #     
-  #   
-  # })
-  # 
-  
-  
 }

@@ -1,6 +1,4 @@
 
-
-
 ui <- dashboardPage(
   dashboardHeader(),
   dashboardSidebar(disable = TRUE),
@@ -33,26 +31,10 @@ ui <- dashboardPage(
             selectInput(
               inputId = "food",
               label = "Choose Food Type",
-              choices = unique(map2$food_category)
+              choices = sort(unique(map2$food_category))
             )
           )),
           shinycustomloader::withLoader(leafletOutput("map", width = "100%", height = "100%"), loader = "loader4"),
-          # absolutePanel(id = "info", class = "panel panel-default", fixed = TRUE,
-          #               draggable = TRUE, top = 60, left = "auto", right = 20, bottom = "auto",
-          #               width = 330, height = "auto",
-          #
-          #               h2("Country Stats")
-          
-          # selectInput("color", "Color", vars),
-          # selectInput("size", "Size", vars, selected = "adultpop"),
-          # conditionalPanel("input.color == 'superzip' || input.size == 'superzip'",
-          #                  # Only prompt for threshold when coloring or sizing by superzip
-          #                  numericInput("threshold", "SuperZIP threshold (top n percentile)", 5)
-          # ),
-          #
-          # plotOutput("histCentile", height = 200),
-          # plotOutput("scatterCollegeIncome", height = 250)
-          #)
         )
       ),
       tabPanel(
@@ -63,7 +45,7 @@ ui <- dashboardPage(
             inputId = "countries",
             label = "Countries",
             choices = c("All Countries", sort(unique(
-              final_table$country
+              map2$country
             ))),
             selected = 'All Countries',
             multiple = TRUE
